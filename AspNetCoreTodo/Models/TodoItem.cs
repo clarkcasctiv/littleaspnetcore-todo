@@ -5,7 +5,8 @@ namespace AspNetCoreTodo.Models
 {
     public class TodoItem
     {
-        public Guid Id { get; set; }
+        // Guid Id
+        public int Id { get; set; }
         public bool IsDone { get; set; }
 
         [Required]

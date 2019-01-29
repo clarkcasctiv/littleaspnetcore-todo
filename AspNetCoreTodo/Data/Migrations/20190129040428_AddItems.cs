@@ -11,7 +11,7 @@ namespace AspNetCoreTodo.Data.Migrations
                 name: "Items",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
                     IsDone = table.Column<bool>(nullable: false),
                     Title = table.Column<string>(nullable: false),
                     DueAt = table.Column<DateTimeOffset>(nullable: true)

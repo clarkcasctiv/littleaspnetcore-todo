@@ -19,7 +19,8 @@ namespace AspNetCoreTodo.Services
 
         public async Task<bool> AddItemsAsync(TodoItem newItem)
         {
-            newItem.Id = Guid.NewGuid();
+            // Random no = new Random();
+            // newItem.Id = Convert.ToInt32(no);
             newItem.IsDone = false;
             newItem.DueAt = DateTimeOffset.Now.AddDays(4);
 
@@ -33,6 +34,21 @@ namespace AspNetCoreTodo.Services
         public async Task<TodoItem[]> GetIncompleteItemsAsync()
         {
             return await _context.Items.Where(x => x.IsDone == false).ToArrayAsync();
+        }
+
+        public async Task<bool> MarkAsDoneAsync(int id)
+        {
+            var item = await _context.Items.Where(x => x.Id == id).SingleOrDefaultAsync();
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            item.IsDone = true;
+
+            var saveResult = await _context.SaveChangesAsync();
+            return saveResult == 1;
         }
     }
 
