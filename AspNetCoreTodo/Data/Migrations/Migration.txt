@@ -1,0 +1,25 @@
+dotnet-ef
+
+// Add Migration
+
+dotnet ef migrations add AddItems
+
+// Show List Of Migrations
+
+dotnet ef migrations list
+
+// Apply the migrations
+
+dotnet ef database update
+
+// Rollback the migration to previous state
+
+dotnet ef database update CreateIdentitySchema // Name Of Previous Migration
+
+// Drop the database
+
+dotnet ef database drop
+
+// Re-Scaffold the database
+
+dotnet ef database update
