@@ -1,0 +1,23 @@
+@model TodoItem
+<link rel="stylesheet" href="css\flatpickr.min.css">
+
+<form asp-action="AddItem" method="post">
+    <label asp-for="Title">Add A New Item:</label>
+    <input asp-for="Title">
+
+    <label asp-for="DueAt">Select Due Time:</label>
+    <input asp-for="DueAt" type="datetime" id="datetime">
+
+    <button type="submit">Add</button>   
+</form>
+
+<script src="js\flatpickr.js"></script>
+<script src="lib\jquery\dist\jquery.min.js"></script>
+<script>
+
+    const fp = flatpickr("#datetime", {
+    enableTime: true,
+    dateFormat: "Y-m-d H:i",
+    }); // flatpickr
+
+</script>

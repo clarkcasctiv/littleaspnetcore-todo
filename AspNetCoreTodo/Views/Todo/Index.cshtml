@@ -28,6 +28,6 @@
     </table>
 
     <div class="panel-footer add-item-form">
-        <!-- TODO: Add Item Form -->
+       @await Html.PartialAsync("AddItemPartial", new TodoItem())
     </div>
 </div>
