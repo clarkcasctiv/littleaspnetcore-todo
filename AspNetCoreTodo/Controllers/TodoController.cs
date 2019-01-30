@@ -2,24 +2,36 @@ using System;
 using System.Threading.Tasks;
 using AspNetCoreTodo.Models;
 using AspNetCoreTodo.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreTodo.Controllers
 {
+    [Authorize]
     public class TodoController : Controller
     {
         private readonly ITodoItemService _todoItemService;
 
-        public TodoController(ITodoItemService todoItemService)
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public TodoController(ITodoItemService todoItemService, UserManager<IdentityUser> userManager)
         {
             _todoItemService = todoItemService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
             // Get to-do items from database
 
-            var items = await _todoItemService.GetIncompleteItemsAsync();
+            var currentuser = await _userManager.GetUserAsync(User);
+            if (currentuser == null)
+            {
+                return Challenge();
+            }
+
+            var items = await _todoItemService.GetIncompleteItemsAsync(currentuser);
 
             // Put items into a model
 
@@ -41,7 +53,14 @@ namespace AspNetCoreTodo.Controllers
                 return RedirectToAction("Index");
             }
 
-            var successful = await _todoItemService.AddItemsAsync(newItem);
+            var currentuser = await _userManager.GetUserAsync(User);
+
+            if (currentuser == null)
+            {
+                return Challenge();
+            }
+
+            var successful = await _todoItemService.AddItemsAsync(newItem, currentuser);
             if (!successful)
             {
                 return BadRequest("Could not add Item");
@@ -59,7 +78,14 @@ namespace AspNetCoreTodo.Controllers
                 return RedirectToAction("Index");
             }
 
-            var successful = await _todoItemService.MarkAsDoneAsync(id);
+            var currentuser = await _userManager.GetUserAsync(User);
+
+            if (currentuser == null)
+            {
+                return Challenge();
+            }
+
+            var successful = await _todoItemService.MarkAsDoneAsync(id, currentuser);
 
             if (!successful)
             {
