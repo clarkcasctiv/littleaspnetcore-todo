@@ -14,7 +14,15 @@ namespace AspNetCoreTodo
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            // CreateWebHostBuilder(args).Build().Run();
+            var host = CreateWebHostBuilder(args);
+            InitializeDatabase(host);
+            host.Build().Run();
+        }
+
+        private static void InitializeDatabase(IWebHostBuilder host)
+        {
+            throw new NotImplementedException();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
