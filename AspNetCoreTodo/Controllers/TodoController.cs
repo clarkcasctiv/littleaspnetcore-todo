@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using AspNetCoreTodo.Models;
 using AspNetCoreTodo.Services;
@@ -42,7 +41,6 @@ namespace AspNetCoreTodo.Controllers
 
             // Render view using the model
             return View(model);
-
         }
 
         [ValidateAntiForgeryToken]
@@ -67,7 +65,6 @@ namespace AspNetCoreTodo.Controllers
             }
 
             return RedirectToAction("Index");
-
         }
 
         [ValidateAntiForgeryToken]

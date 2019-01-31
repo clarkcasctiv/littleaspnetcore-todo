@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace AspNetCoreTodo
@@ -14,19 +15,33 @@ namespace AspNetCoreTodo
     {
         public static void Main(string[] args)
         {
-            // CreateWebHostBuilder(args).Build().Run();
-            var host = CreateWebHostBuilder(args);
+            //  CreateWebHostBuilder(args).InitializeDatabase().Build().Run();
+            var host = BuildWebHost(args);
             InitializeDatabase(host);
-            host.Build().Run();
+            host.Run();
         }
 
-        private static void InitializeDatabase(IWebHostBuilder host)
+        private static void InitializeDatabase(IWebHost host)
         {
-            throw new NotImplementedException();
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                try
+                {
+                    SeedData.InitializeAsync(services).Wait();
+                }
+                catch (Exception ex)
+                {
+
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "Error Occured Seeding The DB.");
+                }
+            }
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>().Build();
     }
 }

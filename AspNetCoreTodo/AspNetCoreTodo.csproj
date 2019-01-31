@@ -7,6 +7,13 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="bbb\**" />
+    <Content Remove="bbb\**" />
+    <EmbeddedResource Remove="bbb\**" />
+    <None Remove="bbb\**" />
+  </ItemGroup>
+
 
 
   <ItemGroup>

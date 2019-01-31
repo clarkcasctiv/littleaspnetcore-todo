@@ -15,15 +15,13 @@ namespace AspNetCoreTodo.Services
         public TodoItemService(ApplicationDbContext context)
         {
             _context = context;
-
         }
 
         public async Task<bool> AddItemsAsync(TodoItem newItem, IdentityUser user)
         {
-
             newItem.IsDone = false;
             newItem.DueAt = DateTimeOffset.Now.AddDays(4);
-            newItem.UserId = user.Id;
+            newItem.OwnerId = user.Id;
 
             _context.Items.Add(newItem);
 
@@ -34,12 +32,12 @@ namespace AspNetCoreTodo.Services
 
         public async Task<TodoItem[]> GetIncompleteItemsAsync(IdentityUser user)
         {
-            return await _context.Items.Where(x => x.IsDone == false && x.UserId == user.Id).ToArrayAsync();
+            return await _context.Items.Where(x => x.IsDone == false && x.OwnerId == user.Id).ToArrayAsync();
         }
 
         public async Task<bool> MarkAsDoneAsync(int id, IdentityUser user)
         {
-            var item = await _context.Items.Where(x => x.Id == id && x.UserId == user.Id).SingleOrDefaultAsync();
+            var item = await _context.Items.Where(x => x.Id == id && x.OwnerId == user.Id).SingleOrDefaultAsync();
 
             if (item == null)
             {
@@ -52,5 +50,4 @@ namespace AspNetCoreTodo.Services
             return saveResult == 1;
         }
     }
-
 }
