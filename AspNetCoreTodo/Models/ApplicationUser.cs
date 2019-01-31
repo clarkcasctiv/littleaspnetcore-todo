@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
-
-public class ApplicationUser : IdentityUser
+namespace AspNetCoreTodo.Models
 {
+    public class ApplicationUser : IdentityUser
+    {
 
+    }
 }

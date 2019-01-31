@@ -13,9 +13,9 @@ namespace AspNetCoreTodo.Controllers
     {
         private readonly ITodoItemService _todoItemService;
 
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TodoController(ITodoItemService todoItemService, UserManager<IdentityUser> userManager)
+        public TodoController(ITodoItemService todoItemService, UserManager<ApplicationUser> userManager)
         {
             _todoItemService = todoItemService;
             _userManager = userManager;

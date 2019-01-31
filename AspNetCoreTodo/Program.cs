@@ -21,6 +21,10 @@ namespace AspNetCoreTodo
             host.Run();
         }
 
+        public static IWebHost BuildWebHost(string[] args) =>
+           WebHost.CreateDefaultBuilder(args)
+               .UseStartup<Startup>().Build();
+
         private static void InitializeDatabase(IWebHost host)
         {
             using (var scope = host.Services.CreateScope())
@@ -40,8 +44,6 @@ namespace AspNetCoreTodo
             }
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>().Build();
+
     }
 }
