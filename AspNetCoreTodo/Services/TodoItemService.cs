@@ -19,8 +19,8 @@ namespace AspNetCoreTodo.Services
 
         public async Task<bool> AddItemsAsync(TodoItem newItem, IdentityUser user)
         {
+            newItem.Id = Guid.NewGuid();
             newItem.IsDone = false;
-            newItem.DueAt = DateTimeOffset.Now.AddDays(4);
             newItem.OwnerId = user.Id;
 
             _context.Items.Add(newItem);
@@ -35,7 +35,7 @@ namespace AspNetCoreTodo.Services
             return await _context.Items.Where(x => x.IsDone == false && x.OwnerId == user.Id).ToArrayAsync();
         }
 
-        public async Task<bool> MarkAsDoneAsync(int id, IdentityUser user)
+        public async Task<bool> MarkAsDoneAsync(Guid id, IdentityUser user)
         {
             var item = await _context.Items.Where(x => x.Id == id && x.OwnerId == user.Id).SingleOrDefaultAsync();
 

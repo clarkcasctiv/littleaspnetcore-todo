@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AspNetCoreTodo.Models;
 using AspNetCoreTodo.Services;
@@ -68,12 +69,16 @@ namespace AspNetCoreTodo.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> MarkDone(int id)
+        public async Task<IActionResult> MarkDone(Guid id)
         {
-            if (id == 0)
+            if (id == Guid.Empty)
             {
                 return RedirectToAction("Index");
             }
+            //if (string.IsNullOrEmpty(id))
+            //{
+            //    return RedirectToAction("Index");
+            //}
 
             var currentuser = await _userManager.GetUserAsync(User);
 

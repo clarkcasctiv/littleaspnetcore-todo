@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AspNetCoreTodo.Data.Migrations
 {
@@ -15,19 +14,19 @@ namespace AspNetCoreTodo.Data.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles");
 
-            migrationBuilder.CreateTable(
-                name: "Items",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false),
-                    DueAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    IsDone = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Items", x => x.Id);
-                });
+            //migrationBuilder.CreateTable(
+            //    name: "Items",
+            //    columns: table => new
+            //    {
+            //        Id = table.Column<Guid>(type: "BLOB", nullable: false),
+            //        DueAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+            //        IsDone = table.Column<bool>(type: "INTEGER", nullable: false),
+            //        Title = table.Column<string>(type: "TEXT", nullable: true)
+            //    },
+            //    constraints: table =>
+            //    {
+            //        table.PrimaryKey("PK_Items", x => x.Id);
+            //    });
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -50,8 +49,8 @@ namespace AspNetCoreTodo.Data.Migrations
             //     name: "FK_AspNetUserTokens_AspNetUsers_UserId",
             //     table: "AspNetUserTokens");
 
-            migrationBuilder.DropTable(
-                name: "Items");
+            //migrationBuilder.DropTable(
+            //    name: "Items");
 
             migrationBuilder.DropIndex(
                 name: "RoleNameIndex",
