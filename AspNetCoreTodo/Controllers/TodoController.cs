@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreTodo.Controllers
 {
+    //[Authorize]
     public class TodoController : Controller
     {
         private readonly ITodoItemService _todoItemService;
